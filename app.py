@@ -1,9 +1,10 @@
+import os
 import random
 from flask import Flask, render_template, request, redirect, url_for, session
 from tasks import TRUTHS, DARES
 
 app = Flask(__name__)
-app.secret_key = "change-this-to-any-random-text"
+app.secret_key = os.environ.get("SECRET_KEY", "local-testing-key")
 
 
 def next_player():
