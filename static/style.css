@@ -1,0 +1,185 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(160deg, #1b1035, #3a1c71 55%, #6a2c91);
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+/* ---------- main layout ---------- */
+.container {
+    width: 100%;
+    max-width: 460px;
+    min-height: 100vh;
+    padding: 28px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    text-align: center;
+    opacity: 0.75;
+    margin: 6px 0 26px;
+    font-size: 0.95rem;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 22px;
+    cursor: pointer;
+    color: #fff;
+    transition: transform 0.15s, opacity 0.15s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.92;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-primary  { background: linear-gradient(135deg, #ff1e56, #ff6a00); width: 100%; margin-top: 14px; box-shadow: 0 6px 18px rgba(255, 30, 86, 0.45); }
+.btn-truth    { background: linear-gradient(135deg, #00c6ff, #0072ff); flex: 1; padding: 18px; font-size: 1.15rem; box-shadow: 0 6px 18px rgba(0, 150, 255, 0.45); }
+.btn-dare     { background: linear-gradient(135deg, #ff0844, #ff5e00); flex: 1; padding: 18px; font-size: 1.15rem; box-shadow: 0 6px 18px rgba(255, 8, 68, 0.5); }
+.btn-complete { background: linear-gradient(135deg, #00e676, #00b248); width: 100%; margin-top: 22px; box-shadow: 0 6px 18px rgba(0, 230, 118, 0.4); }
+.btn-stop     { background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 60, 80, 0.7); width: 100%; }
+.btn-cancel   { background: rgba(255, 255, 255, 0.15); width: 100%; margin-top: 10px; }
+.btn-home     { background: linear-gradient(135deg, #ff0844, #ff5e00); width: 100%; box-shadow: 0 6px 18px rgba(255, 8, 68, 0.5); }
+
+/* ---------- setup page ---------- */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    font-family: inherit;
+    font-size: 1.1rem;
+    padding: 13px 16px;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    outline: none;
+    margin-bottom: 12px;
+    text-align: center !important;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+input:focus {
+    border-color: #ff3d5a;
+}
+
+/* ---------- game page ---------- */
+.game-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.turn-label {
+    opacity: 0.75;
+    font-size: 1rem;
+}
+
+.player-name {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin: 6px 0 26px;
+    word-break: break-word;
+    color: #ffe14d;
+    text-shadow: 0 0 18px rgba(255, 225, 77, 0.45);
+}
+
+.ask {
+    font-size: 1.2rem;
+    margin-bottom: 18px;
+}
+
+.choices {
+    display: flex;
+    gap: 14px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 999px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.badge-truth { background: linear-gradient(135deg, #00c6ff, #0072ff); }
+.badge-dare  { background: linear-gradient(135deg, #ff0844, #ff5e00); }
+
+.task-card {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 26px 20px;
+    font-size: 1.3rem;
+    line-height: 1.5;
+}
+
+/* stop button sits at the bottom of the page */
+.stop-area {
+    margin-top: auto;
+    padding-top: 24px;
+}
+
+/* ---------- stop popup ---------- */
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.overlay.show {
+    display: flex;
+}
+
+.modal {
+    background: #1a0505;
+    border-radius: 2px solid #ff1e56;
+    padding: 26px 22px;
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+}
+
+.modal p {
+    font-size: 1.15rem;
+    margin-bottom: 20px;
+}

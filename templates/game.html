@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truth or Dare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Truth or Dare</h1>
+
+        <div class="game-area">
+            <p class="turn-label">It's your turn</p>
+            <h2 class="player-name">{{ player }}</h2>
+
+            {% if task %}
+                <div>
+                    <span class="badge {{ 'badge-truth' if kind == 'Truth' else 'badge-dare' }}">{{ kind }}</span>
+                </div>
+                <div class="task-card">{{ task }}</div>
+
+                <form method="POST" action="/complete">
+                    <button type="submit" class="btn btn-complete">Complete</button>
+                </form>
+            {% else %}
+                <p class="ask">Truth or Dare?</p>
+
+                <form method="POST" action="/choose">
+                    <div class="choices">
+                        <button type="submit" name="kind" value="Truth" class="btn btn-truth">Truth</button>
+                        <button type="submit" name="kind" value="Dare" class="btn btn-dare">Dare</button>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+
+        <div class="stop-area">
+            <button type="button" class="btn btn-stop" onclick="showStop()">Stop Game</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="stopBox">
+        <div class="modal">
+            <p>Are you sure you want to end this game?</p>
+            <a href="/"><button type="button" class="btn btn-home">Go to Home</button></a>
+            <button type="button" class="btn btn-cancel" onclick="hideStop()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        function showStop() {
+            document.getElementById("stopBox").classList.add("show");
+        }
+        function hideStop() {
+            document.getElementById("stopBox").classList.remove("show");
+        }
+    </script>
+</body>
+</html>

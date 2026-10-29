@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truth or Dare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Truth or Dare</h1>
+        <p class="subtitle">Add your friends and let the fun begin</p>
+
+        <form method="POST" action="/start" onsubmit="return checkNames()">
+            <label for="count">How many people are playing?</label>
+            <input type="number" id="count" min="2" max="12" value="4">
+            <button type="button" class="btn btn-primary" onclick="makeFields()">Next</button>
+
+            <div id="names" style="margin-top:22px;"></div>
+
+            <button type="submit" id="startBtn" class="btn btn-complete" style="display:none;">Start Game</button>
+        </form>
+    </div>
+
+    <div class="overlay" id="dupBox">
+        <div class="modal">
+            <p id="dupText"></p>
+            <button type="button" class="btn btn-home" onclick="closeDup()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        let problemInput = null;
+
+        function makeFields() {
+            const count = parseInt(document.getElementById("count").value);
+            const box = document.getElementById("names");
+            box.innerHTML = "";
+            for (let i = 1; i <= count; i++) {
+                box.innerHTML += `<input type="text" name="player" placeholder="Player ${i} name" required>`;
+            }
+            document.getElementById("startBtn").style.display = "block";
+        }
+
+        function showPopup(message, input) {
+            problemInput = input;
+            document.getElementById("dupText").textContent = message;
+            document.getElementById("dupBox").classList.add("show");
+        }
+
+        function closeDup() {
+            document.getElementById("dupBox").classList.remove("show");
+            if (problemInput) {
+                problemInput.focus();
+                problemInput.select();
+            }
+        }
+
+        function checkNames() {
+            const inputs = document.querySelectorAll('input[name="player"]');
+            const seen = new Set();
+
+            for (const input of inputs) {
+                const shown = input.value.trim();
+                const key = shown.toLowerCase();
+
+                if (key === "") {
+                    showPopup("Please enter a name for every player.", input);
+                    return false;
+                }
+                if (seen.has(key)) {
+                    showPopup(`The name "${shown}" was already given. Please use a different name.`, input);
+                    return false;
+                }
+                seen.add(key);
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
